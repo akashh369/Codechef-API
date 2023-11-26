@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "puppeteer": "^21.5.1"
+  },
+  "name": "node",
+  "version": "1.0.0",
+  "main": "scrap.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start" : "node scrap"
+
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
