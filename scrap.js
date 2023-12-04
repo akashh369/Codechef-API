@@ -54,6 +54,10 @@ async function run(){
     },numberOfContests)
     // console.log(lastFewRatings)
 
+
+    //using external help for easy finish
+    
+
     await browser.close()
 }
 

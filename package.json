@@ -1,15 +1,15 @@
 {
   "dependencies": {
+    "axios": "^1.6.2",
+    "express": "^4.18.2",
     "puppeteer": "^21.5.1"
   },
   "name": "node",
   "version": "1.0.0",
   "main": "scrap.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start" : "node scrap"
-
+    "start": "node scrap"
   },
   "keywords": [],
   "author": "",
