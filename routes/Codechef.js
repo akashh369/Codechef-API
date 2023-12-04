@@ -6,15 +6,10 @@ const puppeteer = require("puppeteer");
 router.get('/codechef/:user',async(req,res)=>{
     const userName=req.params.user;             //write a case for invalid user
     
+    const browser = await puppeteer.launch({headless : 'new'});
+
     const outsideResponse = await axios.get(`https://codechef-api.vercel.app/${userName}`)
-    
-    if(!outsideResponse.success)
-    res.json({
-        success : false,
-    }).status(404)
-    else{
-    
-        const browser = await puppeteer.launch({headless : 'new'});
+    try{
         const page = await browser.newPage();
         await page.goto(`https://www.codechef.com/users/${userName}`,{ viewport: { width: 1280, height: 720 }});
 
@@ -57,7 +52,6 @@ router.get('/codechef/:user',async(req,res)=>{
                 return objArray
         },numberOfContests)
 
-        await browser.close()
         res.json({
             name : outsideResponse.data.name ,
             heatArray : heatArray ,
@@ -65,7 +59,14 @@ router.get('/codechef/:user',async(req,res)=>{
             numberOfContests : numberOfContests,
             lastFewRatings : lastFewRatings,
             otherCommon : outsideResponse.data
-        })
+        }).status(200)
+
+    }
+    catch(e){
+        res.json({success : false , error : e}).status(404)
+    }
+    finally{
+        await browser.close()
     }
 })
 
