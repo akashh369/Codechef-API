@@ -8,18 +8,17 @@ router.get('/codechef/:user',async(req,res)=>{
     const userName=req.params.user;             //write a case for invalid user
     
     const browser = await puppeteer.launch({
-        headless : 'new',
         args: [
-            "--disable-setuid-sandbox",
-            "--no-sandbox",
-            "--single-process",
-            "--no-zygote",
-          ],
-          executablePath:
-            process.env.NODE_ENV === "production"
-              ? process.env.PUPPETEER_EXECUTABLE_PATH
-              : puppeteer.executablePath()
-    });
+          "--disable-setuid-sandbox",
+          "--no-sandbox",
+          "--single-process",
+          "--no-zygote",
+        ],
+        executablePath:
+          process.env.NODE_ENV === "production"
+            ? process.env.PUPPETEER_EXECUTABLE_PATH
+            : puppeteer.executablePath(),
+      });
 
     const outsideResponse = await axios.get(`https://codechef-api.vercel.app/${userName}`)
     try{
