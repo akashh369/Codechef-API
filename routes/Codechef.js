@@ -6,7 +6,7 @@ require("dotenv").config()
 
 router.get('/codechef',async(req,res)=>{
     res.json({
-        result : "Uou are at right endpoint just add /handle_of_user at the end of url",
+        result : "You are at right endpoint just add /handle_of_user at the end of url",
         example : "https://codechefapi.onrender.com/codechef/akashh_bhandar"
     }).status(200)
 })
