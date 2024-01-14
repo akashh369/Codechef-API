@@ -82,7 +82,9 @@ router.get('/codechef/:user', async (req, res) => {
 
     }
     catch (e) {
-        res.json({ success: false, error: e }).status(404)
+        if (e.name == "TypeError")
+            e.name = "USER NOT FOUND"
+        res.json({ success: false, error: "" }).status(404)
     }
     finally {
         await browser.close()
