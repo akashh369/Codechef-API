@@ -37,7 +37,7 @@ router.get('/codechef/:user', async (req, res) => {
             const points = data.map((element) => {
                 const date = element.getAttribute('data-date')
                 const count = element.getAttribute('data-count')
-                return { 'count': count, 'date': date }
+                return { 'count': count? count : 0 , 'date': date }
             }).filter(element => element.count)
             return points
         })
