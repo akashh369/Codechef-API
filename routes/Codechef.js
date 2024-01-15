@@ -37,8 +37,8 @@ router.get('/codechef/:user', async (req, res) => {
             const points = data.map((element) => {
                 const date = element.getAttribute('data-date')
                 const count = element.getAttribute('data-count')
-                return { 'count': count? count : 0 , 'date': date }
-            }).filter(element => element.count)
+                return { 'count': count ? count : 0, 'date': date }
+            })
             return points
         })
 
@@ -84,7 +84,7 @@ router.get('/codechef/:user', async (req, res) => {
     catch (e) {
         if (e.name == "TypeError")
             e.name = "USER NOT FOUND"
-        res.json({ success: false, error: "" }).status(404)
+        res.json({ success: false, error: "please enter a valid username eg akashh_bhandar" }).status(404)
     }
     finally {
         await browser.close()
