@@ -73,7 +73,7 @@ router.get('/codechef/:user', async (req, res) => {
         }, numberOfContests)
 
         res.json({
-            success: false,
+            success: true,
             name: outsideResponse.data.name,
             heatArray: heatArray,
             qusetionsSolved: qusetionsSolved,
