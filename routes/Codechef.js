@@ -6,7 +6,7 @@ require("dotenv").config()
 
 router.get('/codechef', async (req, res) => {
     res.json({
-        success :false,
+        success: false,
         result: "You are at right endpoint just add /handle_of_user at the end of url",
         example: "https://codechefapi.onrender.com/codechef/akashh_bhandar"
     }).status(200)
@@ -54,7 +54,7 @@ router.get('/codechef/:user', async (req, res) => {
         const lastFewRatings = await page.evaluate((numberOfContests) => {
             var objArray = []
             const graph = window.Highcharts.charts.find((chart) => chart.container.parentNode.id == 'cumulative-graph').series[0]
-            for (var i = 1; i <= 5; i++) {
+            for (var i = 1; i <= 10; i++) {
                 if (numberOfContests - i < 0)
                     break;
                 graph.points[numberOfContests - i].firePointEvent('click')
