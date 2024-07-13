@@ -13,17 +13,17 @@ async function run() {
         const points = data.map((element) => {
             const date = element.getAttribute('data-date')
             const count = element.getAttribute('data-count')
-            return { 'count': count? count : 0 , 'date': date }
+            return { 'count': count ? count : 0, 'date': date }
         })
         return points
     })
     // console.log("heatArray",heatArray)
 
     // questionssolved done
-    const qusetionsSolved = await page.evaluate(() => {
+    const questionsSolved = await page.evaluate(() => {
         return document.querySelector("body > main > div > div > div > div > div > section.rating-graphs.rating-data-section > div.rating-title-container > div > b").textContent
     })
-    // console.log("qusetionsSolved", qusetionsSolved)
+    // console.log("questionsSolved", questionsSolved)
 
     //numberofContests done
     var numberOfContests = await page.evaluate(() => {
