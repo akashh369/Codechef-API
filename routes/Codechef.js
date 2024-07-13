@@ -45,7 +45,8 @@ router.get('/codechef/:user', async (req, res) => {
                 return points
             }
             catch (err) {
-                console.log('error while scrapping heat Array', err);
+                throw new Error('error while scrapping heat Array', err);
+                throw new Error("")
             }
 
         });
@@ -55,7 +56,7 @@ router.get('/codechef/:user', async (req, res) => {
                 return document.querySelector(`[id^="highcharts-"] > svg > g.highcharts-data-labels.highcharts-series-0.highcharts-pie-series.highcharts-tracker > g.highcharts-label.highcharts-data-label.highcharts-data-label-color-0 > text > tspan`).textContent;
             }
             catch (err) {
-                console.log('error while scrapping questions solved', err);
+                throw new Error('error while scrapping questions solved', err);
             }
         });
 
@@ -66,7 +67,7 @@ router.get('/codechef/:user', async (req, res) => {
                 return document.querySelector("body > main > div > div > div > div > div > section.rating-graphs.rating-data-section > div.rating-title-container > div > b").textContent;
             }
             catch (err) {
-                console.log('error while scrapping numberOfContests', err);
+                throw new Error('error while scrapping numberOfContests', err);
             }
         });
 
@@ -92,10 +93,9 @@ router.get('/codechef/:user', async (req, res) => {
                 return objArray;
             }
             catch (err) {
-                console.log('error while scrapping lastFewRatings', err);
+                throw new Error('error while scrapping lastFewRatings', err);
             }
         }, numberOfContests);
-        console.log("lastFewRatings", lastFewRatings);
 
         res.json({
             success: true,
