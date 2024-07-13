@@ -28,12 +28,13 @@ router.get('/codechef/:user', async (req, res) => {
                 : puppeteer.executablePath(),
     });
 
-    const outsideResponse = await axios.get(`https://codechef-api.vercel.app/${userName}`)
+    const outsideResponse = await axios.get(`https://codechef-api.vercel.app/${userName}`);
+    let heatArray, questionsSolved, numberOfContests, lastFewRatings;
     try {
         const page = await browser.newPage();
         await page.goto(`https://www.codechef.com/users/${userName}`, { viewport: { width: 1280, height: 720 } });
 
-        const heatArray = await page.evaluate(() => {
+        heatArray = await page.evaluate(() => {
             try {
                 const data = Array.from(document.querySelectorAll('#js-heatmap svg g g rect')).slice(-60);
                 const points = data.map((element) => {
@@ -48,9 +49,8 @@ router.get('/codechef/:user', async (req, res) => {
             }
 
         });
-        console.log("heatArray", heatArray);
 
-        const questionsSolved = await page.evaluate(() => {
+        questionsSolved = await page.evaluate(() => {
             try {
                 return document.querySelector(`[id^="highcharts-"] > svg > g.highcharts-data-labels.highcharts-series-0.highcharts-pie-series.highcharts-tracker > g.highcharts-label.highcharts-data-label.highcharts-data-label-color-0 > text > tspan`).textContent;
             }
@@ -58,10 +58,10 @@ router.get('/codechef/:user', async (req, res) => {
                 console.log('error while scrapping questions solved', err);
             }
         });
-        console.log("questionsSolved", questionsSolved);
 
 
-        var numberOfContests = await page.evaluate(() => {
+
+        numberOfContests = await page.evaluate(() => {
             try {
                 return document.querySelector("body > main > div > div > div > div > div > section.rating-graphs.rating-data-section > div.rating-title-container > div > b").textContent;
             }
@@ -69,9 +69,8 @@ router.get('/codechef/:user', async (req, res) => {
                 console.log('error while scrapping numberOfContests', err);
             }
         });
-        console.log("numberOfContests", numberOfContests);
 
-        const lastFewRatings = await page.evaluate((numberOfContests) => {
+        lastFewRatings = await page.evaluate((numberOfContests) => {
             try {
                 var objArray = []
                 const graph = window.Highcharts.charts.find((chart) => chart.container.parentNode.id == 'cumulative-graph').series[0]
@@ -106,13 +105,18 @@ router.get('/codechef/:user', async (req, res) => {
             numberOfContests: numberOfContests,
             lastFewRatings: lastFewRatings,
             otherCommon: outsideResponse.data
-        }).status(200)
+        }).status(200);
 
     }
     catch (e) {
         if (e.name == "TypeError")
             e.name = "USER NOT FOUND"
-        res.json({ success: false, error: "please enter a valid username eg akashh_bhandar", errorMessage: e }).status(404)
+        res.json(
+            {
+                success: false,
+                error: "please enter a valid username eg akashh_bhandar",
+                data: { heatArray, questionsSolved, numberOfContests, lastFewRatings }
+            }).status(404);
     }
     finally {
         await browser.close()
