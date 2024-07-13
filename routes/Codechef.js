@@ -51,7 +51,7 @@ router.get('/codechef/:user', async (req, res) => {
         });
 
         console.log(1);
-        const dum = await page.evaluate(() => {
+        questionsSolved = await page.evaluate(() => {
             console.log('hi');
             try {
                 console.log('start');
