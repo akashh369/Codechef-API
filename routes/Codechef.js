@@ -29,7 +29,7 @@ router.get('/codechef/:user', async (req, res) => {
                 : puppeteer.executablePath(),
     });
 
-    const outsideResponse = await axios.get(`https://codechef-api.vercel.app/${userName}`);
+    // const outsideResponse = await axios.get(`https://codechef-api.vercel.app/${userName}`);
     let heatArray, questionsSolved, numberOfContests, lastFewRatings;
     try {
         const page = await browser.newPage();
@@ -109,7 +109,7 @@ router.get('/codechef/:user', async (req, res) => {
             questionsSolved: questionsSolved,
             numberOfContests: numberOfContests,
             lastFewRatings: lastFewRatings,
-            otherCommon: outsideResponse.data
+            // otherCommon: outsideResponse.data
         }).status(200);
 
     }
