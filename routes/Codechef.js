@@ -46,14 +46,18 @@ router.get('/codechef/:user', async (req, res) => {
             }
             catch (err) {
                 throw new Error('error while scrapping heat Array', err);
-                throw new Error("")
             }
 
         });
 
-        questionsSolved = await page.evaluate(() => {
+        console.log(1);
+        const dum = await page.evaluate(() => {
+            console.log('hi');
             try {
-                return document.querySelector(`[id^="highcharts-"] > svg > g.highcharts-data-labels.highcharts-series-0.highcharts-pie-series.highcharts-tracker > g.highcharts-label.highcharts-data-label.highcharts-data-label-color-0 > text > tspan`).textContent;
+                console.log('start');
+                let qSolved = document.querySelector("body > main > div > div > div > div > div > section.rating-data-section.problems-solved > h3:nth-child(50)").textContent;
+                qSolved = qSolved.split(":")[1];
+                return qSolved;
             }
             catch (err) {
                 throw new Error('error while scrapping questions solved', err);
@@ -115,7 +119,8 @@ router.get('/codechef/:user', async (req, res) => {
             {
                 success: false,
                 error: "please enter a valid username eg akashh_bhandar",
-                errorMessage: JSON.stringify(e),
+                errorMessage: e.message,
+                stack: e.stack,
                 data: JSON.stringify({ heatArray, questionsSolved, numberOfContests, lastFewRatings })
             }).status(404);
     }
