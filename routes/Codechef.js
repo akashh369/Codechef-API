@@ -48,6 +48,7 @@ router.get('/codechef/:user', async (req, res) => {
             }
 
         });
+        console.log("heatArray", heatArray);
 
         const questionsSolved = await page.evaluate(() => {
             try {
@@ -56,7 +57,8 @@ router.get('/codechef/:user', async (req, res) => {
             catch (err) {
                 console.log('error while scrapping questions solved', err);
             }
-        })
+        });
+        console.log("questionsSolved", questionsSolved);
 
 
         var numberOfContests = await page.evaluate(() => {
@@ -66,7 +68,8 @@ router.get('/codechef/:user', async (req, res) => {
             catch (err) {
                 console.log('error while scrapping numberOfContests', err);
             }
-        })
+        });
+        console.log("numberOfContests", numberOfContests);
 
         const lastFewRatings = await page.evaluate((numberOfContests) => {
             try {
@@ -92,7 +95,8 @@ router.get('/codechef/:user', async (req, res) => {
             catch (err) {
                 console.log('error while scrapping lastFewRatings', err);
             }
-        }, numberOfContests)
+        }, numberOfContests);
+        console.log("lastFewRatings", lastFewRatings);
 
         res.json({
             success: true,
@@ -108,7 +112,7 @@ router.get('/codechef/:user', async (req, res) => {
     catch (e) {
         if (e.name == "TypeError")
             e.name = "USER NOT FOUND"
-        res.json({ success: false, error: "please enter a valid username eg akashh_bhandar" }).status(404)
+        res.json({ success: false, error: "please enter a valid username eg akashh_bhandar", errorMessage: e }).status(404)
     }
     finally {
         await browser.close()
