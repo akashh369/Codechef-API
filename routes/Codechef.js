@@ -115,7 +115,8 @@ router.get('/codechef/:user', async (req, res) => {
             {
                 success: false,
                 error: "please enter a valid username eg akashh_bhandar",
-                data: { heatArray, questionsSolved, numberOfContests, lastFewRatings }
+                errorMessage: JSON.stringify(e),
+                data: JSON.stringify({ heatArray, questionsSolved, numberOfContests, lastFewRatings })
             }).status(404);
     }
     finally {
