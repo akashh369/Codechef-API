@@ -17,10 +17,11 @@ router.get('/codechef/:user', async (req, res) => {
 
     const browser = await puppeteer.launch({
         args: [
-            "--disable-setuid-sandbox",
-            "--no-sandbox",
-            "--single-process",
-            "--no-zygote",
+            '--no-sandbox',
+            '-disable-setuid-sandbox',
+            '--disable-dev-shm-usage',
+            '--single-process',
+            '--disable-web-security'
         ],
         executablePath:
             process.env.NODE_ENV === "production"
