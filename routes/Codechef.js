@@ -34,6 +34,7 @@ router.get('/codechef/:user', async (req, res) => {
     try {
         const page = await browser.newPage();
         await page.goto(`https://www.codechef.com/users/${userName}`, { viewport: { width: 1280, height: 720 } });
+        res.json({ message: 'puppeeter is good' });
 
         heatArray = await page.evaluate(() => {
             try {
