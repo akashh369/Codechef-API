@@ -26,15 +26,15 @@ router.get('/codechef/:user', async (req, res) => {
         executablePath:
             process.env.NODE_ENV === "production"
                 ? process.env.PUPPETEER_EXECUTABLE_PATH
-                : puppeteer.executablePath(),
+                : puppeteer.executablePath(),//usr/bin/google-chrome-stable
     });
 
     // const outsideResponse = await axios.get(`https://codechef-api.vercel.app/${userName}`);
     let heatArray, questionsSolved, numberOfContests, lastFewRatings;
     try {
+        res.json({ message: 'puppeeter is good' });
         const page = await browser.newPage();
         await page.goto(`https://www.codechef.com/users/${userName}`, { viewport: { width: 1280, height: 720 } });
-        res.json({ message: 'puppeeter is good' });
 
         heatArray = await page.evaluate(() => {
             try {
