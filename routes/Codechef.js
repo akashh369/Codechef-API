@@ -29,10 +29,9 @@ router.get('/codechef/:user', async (req, res) => {
                 : puppeteer.executablePath(),//usr/bin/google-chrome-stable
     });
 
-    // const outsideResponse = await axios.get(`https://codechef-api.vercel.app/${userName}`);
+    const outsideResponse = await axios.get(`https://codechef-api.vercel.app/${userName}`);
     let heatArray, questionsSolved, numberOfContests, lastFewRatings;
     try {
-        res.json({ message: 'puppeeter is good' });
         const page = await browser.newPage();
         await page.goto(`https://www.codechef.com/users/${userName}`, { viewport: { width: 1280, height: 720 } });
 
@@ -52,7 +51,6 @@ router.get('/codechef/:user', async (req, res) => {
 
         });
 
-        console.log(1);
         questionsSolved = await page.evaluate(() => {
             console.log('hi');
             try {
