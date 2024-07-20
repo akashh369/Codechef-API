@@ -31,6 +31,8 @@ async function run() {
     })
     // console.log(numberOfContests)
 
+
+    document.querySelector("#graph-button-all").click();
     //last 5 ratings done
     const lastFewRatings = await page.evaluate((numberOfContests) => {
         var objArray = []
